@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="path.logs">${sys:java.io.tmpdir}</Property>
+    </Properties>
+    
+    <Appenders>
+        <!-- Archivo principal -->
+        <RollingFile name="ROOT_MAP" 
+                     fileName="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}map.log" 
+                     filePattern="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}map.log.%d{yyyyMMdd}.gz" 
+                     append="true">
+            <ThresholdFilter level="DEBUG" />
+            <PatternLayout pattern="[%d{dd/MM/yyyy}; %d{HH:mm:ss};] [%p;] [%t] [%c] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="31"/>
+        </RollingFile>
+
+        <!-- DEBUG -->
+        <RollingFile name="DEBUG_MAP" 
+                     fileName="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}debug.log" 
+                     filePattern="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}debug.log.%d{yyyyMMdd}.gz" 
+                     append="true">
+            <ThresholdFilter level="DEBUG" />
+            <PatternLayout pattern="[%d{dd/MM/yyyy}; %d{HH:mm:ss};] [%p;] [%t] [%c] {%C->%M} %m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="31"/>
+        </RollingFile>
+        
+        <!-- ERROR -->
+        <RollingFile name="ERROR_MAP" 
+                     fileName="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}error.log" 
+                     filePattern="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}error.log.%d{yyyyMMdd}.gz" 
+                     append="true">
+            <ThresholdFilter level="ERROR" />
+            <PatternLayout pattern="[%d{dd/MM/yyyy}; %d{HH:mm:ss};] [%p;] [%t] [%c] %m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="31"/>
+        </RollingFile>
+
+        <!-- INFO -->
+        <RollingFile name="INFO_MAP" 
+                     fileName="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}info.log" 
+                     filePattern="${sys:path.logs}${sys:file.separator}sebastian${sys:file.separator}portal${sys:file.separator}matrix${sys:file.separator}info.log.%d{yyyyMMdd}.gz" 
+                     append="true">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{dd/MM/yyyy}; %d{HH:mm:ss};] [%p;] [%t] [%c] %m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy max="31"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="cl.sebastian" level="DEBUG" additivity="false">
+            <AppenderRef ref="INFO_MAP" level="info" />
+            <AppenderRef ref="ERROR_MAP" level="error" />
+            <AppenderRef ref="DEBUG_MAP" level="debug" />
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="ROOT_MAP"/>
+        </Root>
+    </Loggers>
+</Configuration>

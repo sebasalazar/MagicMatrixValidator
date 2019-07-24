@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:composition template="/templates/simple.xhtml">
+        <ui:define name="contenido">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h:form id="formulario" enctype="multipart/form-data">
+                        <p:messages globalOnly="true" showSummary="true" showIcon="true" showDetail="false" />
+                        <p:outputPanel>
+                            <p:fileUpload value="#{homeBean.file}" mode="simple" skinSimple="true"/>
+                        </p:outputPanel>
+                        <p:separator />
+                        <p:commandButton value="Submit" ajax="false" action="#{homeBean.upload}" />
+                        <p:separator />
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h:form id="dataForm">
+                        <p:dataTable var="matrix" value="#{homeBean.matrixes}">
+                            <p:column headerText="Matrix">
+                                <h:outputText value="#{matrix.string}" />
+                            </p:column>
+
+                            <p:column headerText="Fila 1">
+                                <h:outputText value="#{matrix.fila1}" />
+                            </p:column>
+
+                            <p:column headerText="Fila 2">
+                                <h:outputText value="#{matrix.fila2}" />
+                            </p:column>
+
+                            <p:column headerText="Fila 3">
+                                <h:outputText value="#{matrix.fila3}" />
+                            </p:column>
+
+                            <p:column headerText="Columna 1">
+                                <h:outputText value="#{matrix.columna1}" />
+                            </p:column>
+
+                            <p:column headerText="Columna 2">
+                                <h:outputText value="#{matrix.columna2}" />
+                            </p:column>
+
+                            <p:column headerText="Columna 3">
+                                <h:outputText value="#{matrix.columna3}" />
+                            </p:column>
+
+                            <p:column headerText="Diagonal 1">
+                                <h:outputText value="#{matrix.diagonal1}" />
+                            </p:column>
+
+                            <p:column headerText="Diagonal 2">
+                                <h:outputText value="#{matrix.diagonal2}" />
+                            </p:column>
+
+                            <p:column headerText="Mágica">
+                                <h:outputText value="#{matrix.magic}" converter="SiNoConverter" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
